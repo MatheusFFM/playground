@@ -2,6 +2,7 @@ package SubsetSum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class MaxSubsetSum {
 
@@ -20,7 +21,7 @@ public class MaxSubsetSum {
         int maxSum = 0;
         List<Integer> subset = new ArrayList<>();
 
-        while (limit < arr.length) {
+        while (limit <= arr.length) {
             for (int i = 0; i < arr.length - limit; i++) {
 
                 int sum = 0;
@@ -39,6 +40,9 @@ public class MaxSubsetSum {
             }
             limit++;
         }
+
+        //Case the sum of all vector is higher than a subset
+        maxSum = Math.max(IntStream.of(arr).sum(), maxSum);
 
         return maxSum;
     }
