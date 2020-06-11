@@ -22,4 +22,9 @@ public class Item {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString(){
+        return this.name + ": Value = " + this.value + " Weigth = " + this.weight;
+    }
 }
