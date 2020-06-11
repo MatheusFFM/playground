@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args){
 
         int choice;
-        int maxSum = 0;
 
         do {
+            int maxSum = 0;
             menu();
             choice = in.nextInt();
             in.nextLine();
@@ -31,11 +31,10 @@ public class Main {
     }
 
     public static int customMaxSum(){
-        int length = 0;
         int[] arr;
 
         System.out.print("Type your array's length: ");
-        length = in.nextInt();
+        int length = in.nextInt();
 
         arr = new int[length];
 
