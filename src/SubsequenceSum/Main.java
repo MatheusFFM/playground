@@ -1,11 +1,11 @@
-package SubsetSum;
+package SubsequenceSum;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    private static final int[] DEFAULT_SET= {10, 2, -15, 10, 50, -1, 3, -30, 10};
+    private static final int[] DEFAULT_SET=  {1, -3, 6, -2, 9, -8, -6, 4, 8};//{10, 2, -15, 10, 50, -1, 3, -30, 10};
     private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args){
@@ -22,7 +22,7 @@ public class Main {
                     maxSum = customMaxSum();
                     break;
                 case 2:
-                    maxSum = MaxSubsetSum.bruteForce(DEFAULT_SET);
+                    maxSum = MaxSum.bruteForce(DEFAULT_SET);
                     break;
             }
             System.out.println("Max sum found = " + maxSum);
@@ -46,11 +46,11 @@ public class Main {
 
         System.out.println("Your array = " + Arrays.toString(arr));
 
-        return MaxSubsetSum.bruteForce(arr);
+        return MaxSum.bruteForce(arr);
     }
 
     public static void menu(){
-        System.out.print("\n1 - Max subset sum with custom value\n2 - Max subset sum with example value: " + Arrays.toString(DEFAULT_SET) +
+        System.out.print("\n1 - Max subsequence  sum with custom value\n2 - Max subset sum with example value: " + Arrays.toString(DEFAULT_SET) +
                 "\n\n0 - END\n\nSelect your option: ");
     }
 }
