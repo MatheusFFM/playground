@@ -27,10 +27,10 @@ public class Main {
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
                     break;
                 case 3:
-                    maxSum = MaxSum.divideToConquer(DEFAULT_SET, 0, DEFAULT_SET.length-1);
-                    System.out.println("[Brute Force] Max sum found = " + maxSum);
-                    maxSum = MaxSum.bruteForce(DEFAULT_SET);
+                    maxSum = MaxSum.divideToConquer(DEFAULT_SET);
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
+                    maxSum = MaxSum.bruteForce(DEFAULT_SET);
+                    System.out.println("[Brute Force] Max sum found = " + maxSum);
                     break;
             }
         } while (choice != 0);
@@ -52,7 +52,7 @@ public class Main {
 
         System.out.println("Your array = " + Arrays.toString(arr));
 
-        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr, 0, arr.length-1);
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
     }
 
     public static void menu(){
