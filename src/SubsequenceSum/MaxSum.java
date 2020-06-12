@@ -46,4 +46,12 @@ public class MaxSum {
 
         return maxSum;
     }
+
+    public static int divideToConquer(int arr[], int l,
+                                      int h)
+    {
+        return 0;
+    }
+
+
 }

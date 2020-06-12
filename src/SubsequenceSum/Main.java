@@ -19,23 +19,29 @@ public class Main {
             in.nextLine();
             switch (choice) {
                 case 1:
-                    maxSum = customMaxSum();
+                    maxSum = customMaxSum(true);
+                    System.out.println("[Brute Force] Max sum found = " + maxSum);
                     break;
                 case 2:
+                    maxSum = customMaxSum(false);
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
+                    break;
+                case 3:
+                    maxSum = MaxSum.divideToConquer(DEFAULT_SET, 0, DEFAULT_SET.length-1);
+                    System.out.println("[Brute Force] Max sum found = " + maxSum);
                     maxSum = MaxSum.bruteForce(DEFAULT_SET);
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
                     break;
             }
-            System.out.println("Max sum found = " + maxSum);
         } while (choice != 0);
 
     }
 
-    public static int customMaxSum(){
-        int length = 0;
+    public static int customMaxSum(boolean bf){
         int[] arr;
 
         System.out.print("Type your array's length: ");
-        length = in.nextInt();
+        int length = in.nextInt();
 
         arr = new int[length];
 
@@ -46,11 +52,12 @@ public class Main {
 
         System.out.println("Your array = " + Arrays.toString(arr));
 
-        return MaxSum.bruteForce(arr);
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr, 0, arr.length-1);
     }
 
     public static void menu(){
-        System.out.print("\n1 - Max subsequence  sum with custom value\n2 - Max subset sum with example value: " + Arrays.toString(DEFAULT_SET) +
+        System.out.print("\n1 - Max subsequence sum with custom value (Brute Force)\n2 - Max subsequence sum with custom value (Divide to conquer)" +
+                "\n3 - Max subsequency sum in both methods with example value: " + Arrays.toString(DEFAULT_SET) +
                 "\n\n0 - END\n\nSelect your option: ");
     }
 }
