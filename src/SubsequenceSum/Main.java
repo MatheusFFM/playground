@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args){
 
         int choice;
-        int maxSum = 0;
 
         do {
+            int maxSum = 0;
             menu();
             choice = in.nextInt();
             in.nextLine();
