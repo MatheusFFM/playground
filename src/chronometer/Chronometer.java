@@ -6,6 +6,10 @@ public class Chronometer {
     private long timeEnd;
     private long time;
 
+    public Chronometer(){
+        time = 0;
+    }
+
     /***
      * Initialize the chronometer by making timeStart equals to actual execution time in nanoseconds
      */
