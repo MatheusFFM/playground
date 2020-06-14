@@ -1,4 +1,4 @@
-package SubsequenceSum;
+package subsequenceSum;
 
 import java.util.ArrayList;
 import java.util.List;
