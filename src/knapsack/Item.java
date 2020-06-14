@@ -1,4 +1,4 @@
-package Knapsack;
+package knapsack;
 
 public class Item {
     private int value;

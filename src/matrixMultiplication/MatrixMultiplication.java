@@ -1,4 +1,4 @@
-package MatrixMultiplication;
+package matrixMultiplication;
 
 public class MatrixMultiplication {
 

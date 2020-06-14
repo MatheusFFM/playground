@@ -1,16 +1,19 @@
-package SubsequenceSum;
+package subsequenceSum;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import chronometer.Chronometer;
 
 public class Main {
 
     private static final int[] DEFAULT_SET=  {1, -3, 6, -2, 9, -8, -6, 4, 8};//{10, 2, -15, 10, 50, -1, 3, -30, 10};
     private static Scanner in = new Scanner(System.in);
+    private static Chronometer chronometer = new Chronometer();
 
     public static void main(String[] args){
 
         int choice;
+        long time;
 
         do {
             int maxSum = 0;
@@ -19,18 +22,25 @@ public class Main {
             in.nextLine();
             switch (choice) {
                 case 1:
+                    chronometer.start();
                     maxSum = customMaxSum(true);
-                    System.out.println("[Brute Force] Max sum found = " + maxSum);
+                    time = chronometer.stop();
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
                 case 2:
+                    chronometer.start();
                     maxSum = customMaxSum(false);
-                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
+                    time = chronometer.stop();
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
                 case 3:
+                    chronometer.start();
                     maxSum = MaxSum.divideToConquer(DEFAULT_SET);
-                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum);
+                    time = chronometer.restart();
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     maxSum = MaxSum.bruteForce(DEFAULT_SET);
-                    System.out.println("[Brute Force] Max sum found = " + maxSum);
+                    time = chronometer.stop();
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
             }
         } while (choice != 0);
