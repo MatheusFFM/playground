@@ -54,7 +54,7 @@ public class Main {
 
     /***
      * This method creates a new set based on the length and elements the user wants,
-     * then, this calls and return the result of the max subsequency sum with brute force
+     * then, this calls and return the result of the max subsequence sum with brute force
      * or divide to conquer
      *
      * @param bf if true, calls brute force method, else, call divider to conquer method
@@ -83,7 +83,7 @@ public class Main {
      */
     public static void menu(){
         System.out.print("\n1 - Max subsequence sum with custom value (Brute Force)\n2 - Max subsequence sum with custom value (Divide to conquer)" +
-                "\n3 - Max subsequency sum in both methods with example value: " + Arrays.toString(DEFAULT_SET) +
+                "\n3 - Max subsequence sum in both methods with example value: " + Arrays.toString(DEFAULT_SET) +
                 "\n\n0 - END\n\nSelect your option: ");
     }
 }
