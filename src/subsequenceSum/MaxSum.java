@@ -6,6 +6,22 @@ import java.util.stream.IntStream;
 
 public class MaxSum {
 
+    private static List<Integer> bestSubsequence = new ArrayList<>();
+    private static int initIndex;
+    private static int endIndex;
+
+    public static List<Integer> getBestSubsequence() {
+        return bestSubsequence;
+    }
+
+    public static int getInitIndex() {
+        return initIndex;
+    }
+
+    public static int getEndIndex() {
+        return endIndex;
+    }
+
     /***
      *
      * This function creates all subsets of the arr[] param, with three loops:
@@ -19,11 +35,12 @@ public class MaxSum {
 
         int limit = 1;
         int maxSum = Integer.MIN_VALUE;
-        List<Integer> subsequence = new ArrayList<>();
 
         while (limit <= arr.length) {
             //select the start subsequence point
             for (int i = 0; i < arr.length - limit; i++) {
+
+                List<Integer> subsequence = new ArrayList<>();
 
                 int sum = 0;
 
@@ -35,6 +52,8 @@ public class MaxSum {
 
                 //Uncomment this for see all the subsequence generated
                 //System.out.println(subsequence  + "\tsum = " + sum + "\twith limit = " + limit);
+
+                bestSubsequence = maxSum > sum? bestSubsequence : new ArrayList<>(subsequence);
 
                 //Chose the max value
                 maxSum = Math.max(sum, maxSum);
@@ -90,9 +109,18 @@ public class MaxSum {
             2° -> All the subsequences in the right side of the arr
             3° -> The subsequences that cross the middle, so the algorithm does another function
          */
-        return Math.max(Math.max(divideToConquer(arr, init, mid),
+
+        int max = Math.max(Math.max(divideToConquer(arr, init, mid),
                 divideToConquer(arr, mid+1, end)),
                 crossing(arr, init, mid, end));
+
+        bestSubsequence.clear();
+
+        for(int i = initIndex; i<=endIndex; i++){
+            bestSubsequence.add(arr[i]);
+        }
+
+        return max;
     }
 
     /***
@@ -113,11 +141,15 @@ public class MaxSum {
 
         int sum = 0;
         int left = Integer.MIN_VALUE;
+        initIndex = -1;
+        endIndex = -1;
+        List<Integer> subsequence = new ArrayList<>();
 
         //Select the max subsequence among all possibilities in the left side of the array, including the middle
         for (int i = mid; i >= init; i--)
         {
-            sum = sum + arr[i];
+            sum += arr[i];
+            initIndex = sum < left? initIndex:i;
             left = Math.max(sum, left);
         }
 
@@ -127,7 +159,8 @@ public class MaxSum {
         //Select the max subsequence among all possibilities in the right side of the array, including the middle
         for (int i = mid + 1; i <= end; i++)
         {
-            sum = sum + arr[i];
+            sum += arr[i];
+            endIndex = sum < right? endIndex:i;
             right = Math.max(right, sum);
         }
 
