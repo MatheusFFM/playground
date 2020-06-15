@@ -8,6 +8,11 @@ public class Main {
 
     //Set example
     private static final int[] DEFAULT_SET=  {10, 2, -15, 10, 50, -1, 3, -30, 10};
+    //Tamanho max 1868 39min
+    private static final long MAX_TIME = 5000000000L;
+    private static final int INIT_TEST_LENGTH = 0; // 90000000;
+
+    private static final int MAX_PRINT_ARRAY = 100;
 
     private static Scanner in = new Scanner(System.in);
     private static Chronometer chronometer = new Chronometer();
@@ -25,14 +30,12 @@ public class Main {
             switch (choice) {
                 case 1:
                     //Brute force with custom values
-                    chronometer.start();
                     maxSum = customMaxSum(true);
                     time = chronometer.stop();
                     System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
                 case 2:
                     //Divide to conquer with custom values
-                    chronometer.start();
                     maxSum = customMaxSum(false);
                     time = chronometer.stop();
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
@@ -46,6 +49,25 @@ public class Main {
                     maxSum = MaxSum.bruteForce(DEFAULT_SET);
                     time = chronometer.stop();
                     System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    break;
+                case 4:
+                    long length = getMax(true);
+                    System.out.println("[Brute force] Max value = " + length);
+                    break;
+                case 5:
+                    length = getMax(false);
+                    System.out.println("[Divide to conquer] Max value = " + length);
+                    break;
+                case 6:
+                    //Brute force with custom values
+                    maxSum = customLength(true);
+                    time = chronometer.stop();
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    break;
+                case 7:
+                    maxSum = customLength(false);
+                    time = chronometer.stop();
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
             }
         } while (choice != 0);
@@ -75,7 +97,47 @@ public class Main {
 
         System.out.println("Your array = " + Arrays.toString(arr));
 
+        chronometer.start();
         return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+    }
+
+    public static int customLength(boolean bf){
+        int[] arr;
+
+        System.out.print("Type your array's length: ");
+        int length = in.nextInt();
+
+        arr = ArrayGenerator.generate(length);
+
+        String message = arr.length <= MAX_PRINT_ARRAY ? Arrays.toString(arr) : "Array to large to print";
+
+        System.out.println("Your array = " + message);
+
+        chronometer.start();
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+    }
+
+    public static int getMax(boolean bf){
+        int length = INIT_TEST_LENGTH;
+        boolean low = true;
+        int[] arr;
+
+        chronometer.start();
+        arr = ArrayGenerator.generate(length);
+        int result =  bf?MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+        long time = chronometer.stop();
+
+        while(time <= MAX_TIME) {
+            low = false;
+            System.out.println("\n\n------\nTrying: " + length);
+            arr = ArrayGenerator.generate(length);
+            chronometer.start();
+            result =  bf?MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+            time = chronometer.stop();
+            System.out.println("Time = " + time);
+            length++;
+        }
+        return low?-1: length;
     }
 
     /**
@@ -84,6 +146,7 @@ public class Main {
     public static void menu(){
         System.out.print("\n1 - Max subsequence sum with custom value (Brute Force)\n2 - Max subsequence sum with custom value (Divide to conquer)" +
                 "\n3 - Max subsequence sum in both methods with example value: " + Arrays.toString(DEFAULT_SET) +
-                "\n\n0 - END\n\nSelect your option: ");
+                "\n4 - Get Max value (Brute Force)\n5 - Get Max value (Divide to conquer)\n6 - Random array with custom length (Brute Force)" +
+                "\n7 - Random array with custom length (Divide to conquer)\n\n0 - END\n\nSelect your option: ");
     }
 }
