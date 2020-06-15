@@ -31,7 +31,7 @@ public class Chronometer {
     }
 
     /***
-     * Return the duration from the start to this method's call but don't resete chronometer variables
+     * Return the duration from the start to this method's call but don't reset chronometer variables
      *
      * @return the duration between start and now
      */
