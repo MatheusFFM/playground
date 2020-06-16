@@ -19,7 +19,7 @@ public class Main {
     private static final int[] DEFAULT_SET=  {10, 2, -15, 10, 50, -1, 3, -30, 10};
 
     //The array's length limit to print when it's random generated
-    private static final int MAX_PRINT_ARRAY = 100;
+    private static final int MAX_PRINT_ARRAY = 1000;
 
     private static Scanner in = new Scanner(System.in);
     private static Chronometer chronometer = new Chronometer();
