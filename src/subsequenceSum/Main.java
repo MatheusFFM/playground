@@ -8,7 +8,7 @@ import chronometer.Chronometer;
  * This shows how the max subsequence sum is much more effective with the divide and conquer
  * method than the brute force method. The divide and conquer is faster, in a 5 seconds reference
  * test, the methods can solve the problem with an array's length:
- *  Brute force: approximately 120.000 elements (without saving the combination).
+ *  Brute force: approximately 120.000 elements.
  *  Divide to conquer: more than 100.000.000 elements.
  *
  * so the divide to conquer method is extremely effective.
@@ -52,11 +52,11 @@ public class Main {
                     chronometer.start();
                     maxSum = MaxSum.divideToConquer(DEFAULT_SET);
                     time = chronometer.stop();
-                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds \t time/element = " + (float)time/DEFAULT_SET.length );
                     chronometer.start();
                     maxSum = MaxSum.bruteForce(DEFAULT_SET);
                     time = chronometer.stop();
-                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds \t time/element = " + (float)time/DEFAULT_SET.length );
                     break;
                 case 4:
                     //Brute force with a random generated array but the user chooses the array's length
@@ -67,6 +67,7 @@ public class Main {
                 case 5:
                     //Divide to conquer with a random generated array but the user chooses the array's length
                     maxSum = customLength(false);
+
                     time = chronometer.stop();
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
@@ -75,11 +76,11 @@ public class Main {
                     chronometer.start();
                     maxSum = MaxSum.divideToConquer(randomArr);
                     time = chronometer.stop();
-                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds \t time/element = " + (float)time/randomArr.length );
                     chronometer.start();
                     maxSum = MaxSum.bruteForce(randomArr);
                     time = chronometer.stop();
-                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds \t time/element = " + (float)time/randomArr.length );
 
             }
         } while (choice != 0);
