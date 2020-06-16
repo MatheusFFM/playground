@@ -51,8 +51,9 @@ public class Main {
                     //Divide to conquer and brute force methods with a default value
                     chronometer.start();
                     maxSum = MaxSum.divideToConquer(DEFAULT_SET);
-                    time = chronometer.restart();
+                    time = chronometer.stop();
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    chronometer.start();
                     maxSum = MaxSum.bruteForce(DEFAULT_SET);
                     time = chronometer.stop();
                     System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
@@ -69,6 +70,17 @@ public class Main {
                     time = chronometer.stop();
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
+                case 6:
+                    int[] randomArr = getArr();
+                    chronometer.start();
+                    maxSum = MaxSum.divideToConquer(randomArr);
+                    time = chronometer.stop();
+                    System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+                    chronometer.start();
+                    maxSum = MaxSum.bruteForce(randomArr);
+                    time = chronometer.stop();
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
+
             }
         } while (choice != 0);
 
@@ -109,7 +121,19 @@ public class Main {
      * @param bf if true, calls brute force method, else, call divider to conquer method
      * @return the result of the selected method
      */
-    public static int customLength(boolean bf){
+    public static int customLength(boolean bf) {
+        int[] arr = getArr();
+
+        chronometer.start();
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+    }
+
+    /**
+     * asks for a length and create an array with that length filled with random numbers
+     *
+     * @return the array created
+     */
+    public static int[] getArr(){
         int[] arr;
 
         System.out.print("Type your array's length: ");
@@ -120,18 +144,19 @@ public class Main {
         String message = arr.length <= MAX_PRINT_ARRAY ? Arrays.toString(arr) : "Array to large to print";
 
         System.out.println("Your array = " + message);
-
-        chronometer.start();
-        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
+        return arr;
     }
 
     /**
      * Prints menu on console
      */
     public static void menu(){
-        System.out.print("\n1 - Max subsequence sum with custom value (Brute Force)\n2 - Max subsequence sum with custom value (Divide to conquer)" +
+        System.out.print("\n1 - Max subsequence sum with custom value (Brute Force)" +
+                "\n2 - Max subsequence sum with custom value (Divide to conquer)" +
                 "\n3 - Max subsequence sum in both methods with example value: " + Arrays.toString(DEFAULT_SET) +
                 "\n4 - Random array with custom length (Brute Force)" +
-                "\n5 - Random array with custom length (Divide to conquer)\n\n0 - END\n\nSelect your option: ");
+                "\n5 - Random array with custom length (Divide to conquer)" +
+                "\n6 - Random array with custom length (Both methods)" +
+                "\n\n0 - END\n\nSelect your option: ");
     }
 }
