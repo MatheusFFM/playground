@@ -18,10 +18,6 @@ public class Main {
     //Set example
     private static final int[] DEFAULT_SET=  {10, 2, -15, 10, 50, -1, 3, -30, 10};
 
-    //Variáveis de teste
-    private static final long MAX_TIME = 5000000000L; // the time reference (5 seconds)
-    private static final int INIT_TEST_LENGTH = 0; // the initial test;
-
     //The array's length limit to print when it's random generated
     private static final int MAX_PRINT_ARRAY = 100;
 
@@ -34,7 +30,7 @@ public class Main {
         long time;
 
         do {
-            int maxSum = 0;
+            int maxSum;
             menu();
             choice = in.nextInt();
             in.nextLine();
@@ -54,13 +50,12 @@ public class Main {
                 case 3:
                     //Divide to conquer and brute force methods with a default value
                     chronometer.start();
-                    maxSum = MaxSum.divideToConquer(DEFAULT_SET, false);
+                    maxSum = MaxSum.divideToConquer(DEFAULT_SET);
                     time = chronometer.restart();
                     System.out.println("[Divide to Conquer] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
-                    maxSum = MaxSum.bruteForce(DEFAULT_SET, false);
+                    maxSum = MaxSum.bruteForce(DEFAULT_SET);
                     time = chronometer.stop();
-                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time +
-                            " nanoseconds\t subsequence = " + MaxSum.getBestSubsequence() );
+                    System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds");
                     break;
                 case 4:
                     //Brute force with a random generated array but the user chooses the array's length
@@ -103,7 +98,7 @@ public class Main {
         System.out.println("Your array = " + Arrays.toString(arr));
 
         chronometer.start();
-        return bf ? MaxSum.bruteForce(arr, false) : MaxSum.divideToConquer(arr, false);
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
     }
 
     /***
@@ -127,38 +122,7 @@ public class Main {
         System.out.println("Your array = " + message);
 
         chronometer.start();
-        return bf ? MaxSum.bruteForce(arr, false) : MaxSum.divideToConquer(arr, false);
-    }
-
-    /**
-     * This method was used for help to search a big array length that can be solved
-     * in less than 5 seconds with brute force and divide to conquer.
-     *
-     * @param bf if true, calls brute force method, else, call divider to conquer method
-     * @return the max value with execution equals or lower than five seconds, if the initial
-     * value is already higher than five seconds returns -1
-     */
-    public static int getMax(boolean bf){
-        int length = INIT_TEST_LENGTH;
-        boolean low = true;
-        int[] arr;
-
-        chronometer.start();
-        arr = ArrayGenerator.generate(length);
-        int result =  bf?MaxSum.bruteForce(arr, false) : MaxSum.divideToConquer(arr, false);
-        long time = chronometer.stop();
-
-        while(time <= MAX_TIME) {
-            low = false;
-            System.out.println("\n\n------\nTrying: " + length);
-            arr = ArrayGenerator.generate(length);
-            chronometer.start();
-            result =  bf?MaxSum.bruteForce(arr, false) : MaxSum.divideToConquer(arr, false);
-            time = chronometer.stop();
-            System.out.println("Time = " + time + "\t result = " + result);
-            length++;
-        }
-        return low?-1: length;
+        return bf ? MaxSum.bruteForce(arr) : MaxSum.divideToConquer(arr);
     }
 
     /**

@@ -5,12 +5,10 @@ import java.util.List;
 
 public class MaxSum {
 
-    private static List<Integer> bestSubsequence = new ArrayList<>();
-    private static int initIndex;
-    private static int endIndex;
+    private static List<Integer> bestSequence;
 
-    public static List<Integer> getBestSubsequence() {
-        return bestSubsequence;
+    public static List<Integer> getBestSequence() {
+        return bestSequence;
     }
 
     /**
@@ -19,27 +17,20 @@ public class MaxSum {
      * to make all possible combinations.
      *
      * @param arr is the array to create the subsequences
-     * @param getSub if true, creates a list with the best subsequence, but the execution is slower
      * @return the max subsequence sum found
      */
-    public static int bruteForce(int[] arr, boolean getSub) {
+    public static int bruteForce(int[] arr) {
 
         int maxSum = Integer.MIN_VALUE;
 
             //choose an initial element
             for (int i = 0; i < arr.length; i++) {
 
-                List<Integer> subsequence = new ArrayList<>();
-
                 int sum = 0;
 
                 //creates the subsequence
                 for (int j = i; j < arr.length; j++) {
                     sum += arr[j];
-                    if(getSub) {
-                        subsequence.add(arr[j]);
-                        bestSubsequence = maxSum > sum ? bestSubsequence : new ArrayList<>(subsequence);
-                    }
                     maxSum = Math.max(sum, maxSum);
                 }
             }
@@ -50,15 +41,14 @@ public class MaxSum {
 
     /***
      *
-     * Public call to the function divideToConquer that orders the algorthm to find
+     * Public call to the function divideToConquer that orders the algorithm to find
      * the max subsequence sum from begin to end of the arr.
      *
      * @param arr the array to find the max subsequence sum
-     * @param getSub if true, creates a list with the best subsequence, but the execution is slower
      * @return the max subsequence sum
      */
-    public static int divideToConquer(int[] arr, boolean getSub){
-        return divideToConquer(arr, 0, arr.length-1, getSub);
+    public static int divideToConquer(int[] arr){
+        return divideToConquer(arr, 0, arr.length-1);
     }
 
     /***
@@ -71,11 +61,10 @@ public class MaxSum {
      * @param arr the array to find the max subsequence sum
      * @param init the start of the array
      * @param end the end of the array
-     * @param getSub if true, creates a list with the best subsequence, but the execution is slower
      * @return the max subsequence sum
      */
     private static int divideToConquer(int[] arr, int init,
-                              int end, boolean getSub)
+                              int end)
     {
         // If the arr has only one element, it's the base case were the recursion ends
         if (init == end) {
@@ -92,19 +81,9 @@ public class MaxSum {
             3° -> The subsequences that cross the middle, so the algorithm does another function
          */
 
-        int max = Math.max(Math.max(divideToConquer(arr, init, mid, getSub),
-                divideToConquer(arr, mid+1, end, getSub)),
+        return Math.max(Math.max(divideToConquer(arr, init, mid),
+                divideToConquer(arr, mid+1, end)),
                 crossing(arr, init, mid, end));
-
-        if(getSub) {
-            bestSubsequence.clear();
-
-            for (int i = initIndex; i <= endIndex; i++) {
-                bestSubsequence.add(arr[i]);
-            }
-        }
-
-        return max;
     }
 
     /***
@@ -125,14 +104,11 @@ public class MaxSum {
 
         int sum = 0;
         int left = Integer.MIN_VALUE;
-        initIndex = -1;
-        endIndex = -1;
 
         //Select the max subsequence among all possibilities in the left side of the array, including the middle
         for (int i = mid; i >= init; i--)
         {
             sum += arr[i];
-            initIndex = sum < left? initIndex:i;
             left = Math.max(sum, left);
         }
 
@@ -143,7 +119,6 @@ public class MaxSum {
         for (int i = mid + 1; i <= end; i++)
         {
             sum += arr[i];
-            endIndex = sum < right? endIndex:i;
             right = Math.max(right, sum);
         }
 
