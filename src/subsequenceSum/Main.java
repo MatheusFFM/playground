@@ -5,6 +5,8 @@ import java.util.Scanner;
 import chronometer.Chronometer;
 
 /**
+ * QUESTION'S ANSWER
+ *
  * This shows how the max subsequence sum is much more effective with the divide and conquer
  * method than the brute force method. The divide and conquer is faster, in a 5 seconds reference
  * test, the methods can solve the problem with an array's length:
@@ -12,6 +14,10 @@ import chronometer.Chronometer;
  *  Divide to conquer: more than 100.000.000 elements.
  *
  * so the divide to conquer method is extremely effective.
+ *
+ * When the code receives a short array, the brute force is more effective, but the more the array grows,
+ * more effective is the time per instance of the division and conquer algorithm but the brute force for
+ * having a high complexity becomes very inefficient.
  */
 public class Main {
 
@@ -81,7 +87,7 @@ public class Main {
                     maxSum = MaxSum.bruteForce(randomArr);
                     time = chronometer.stop();
                     System.out.println("[Brute Force] Max sum found = " + maxSum + "\t time = " + time + " nanoseconds \t time/element = " + (float)time/randomArr.length );
-
+                    break;
             }
         } while (choice != 0);
 

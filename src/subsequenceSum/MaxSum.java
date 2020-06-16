@@ -1,15 +1,6 @@
 package subsequenceSum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MaxSum {
-
-    private static List<Integer> bestSequence;
-
-    public static List<Integer> getBestSequence() {
-        return bestSequence;
-    }
 
     /**
      * This function creates all subsets of the arr[] param with two loops,
@@ -22,6 +13,22 @@ public class MaxSum {
     public static int bruteForce(int[] arr) {
 
         int maxSum = Integer.MIN_VALUE;
+
+            /*
+                [-3, 5, 6, 7, -10]
+
+                [-3]
+                [-3, 5]
+                ...
+                [-3, 5, 6, 7, -10]
+                END
+
+                [5]
+                [5,6]
+                ...
+                [5, 6, 7, -10]
+
+             */
 
             //choose an initial element
             for (int i = 0; i < arr.length; i++) {
